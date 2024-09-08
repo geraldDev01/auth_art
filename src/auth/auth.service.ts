@@ -82,6 +82,8 @@ export class AuthService {
     });
     if (!user) throw new ForbiddenException('Access denied');
 
+    if (!user.hashedRTK) throw new ForbiddenException('Please login');
+
     const rtCheck = await bcrypt.compare(rt, user.hashedRTK);
 
     if (!rtCheck) throw new ForbiddenException('Access denied');
